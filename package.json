@@ -1,0 +1,16 @@
+{
+  "name": "liri",
+  "version": "1.0.0",
+  "description": "RU RWHO",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "justin",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.81.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.0"
+  }
+}
