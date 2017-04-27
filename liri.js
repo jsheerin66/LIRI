@@ -87,6 +87,6 @@ function pullSpotify(song) {
 }
 
 function pullRequest() {
-  console.log(pullRequest)
+    console.log(pullRequest)
 
 }
