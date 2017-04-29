@@ -1,6 +1,7 @@
 var twitterKeys = require("./keys.js");
 var Twitter = require('twitter');
 var spotify = require('spotify');
+var omdb = require('omdb');
 var request = require('request');
 
 
@@ -33,6 +34,7 @@ console.log(twitterKeys.access_token_key)
 console.log(twitterKeys.access_token_secret)
 var command = process.argv[2];
 var query = process.argv[3];
+
 console.log(query)
 console.log("commandIs " + command)
 
@@ -44,6 +46,7 @@ if (command == "my-tweets") {
     pullSpotify(query)
 } else if (command == "movie-this") {
     console.log("movie-this")
+    pullOMDB(query)
 } else if (command == "do-what-it-says") {
     console.log("do-what-it-says")
 }
@@ -76,7 +79,7 @@ function pullSpotify(song) {
             return;
         }
 
-        // console.log(data)
+        console.log(data)
         // console.log(data.tracks)
 
         for (i = 0; i < data.tracks.items.length; i++) {
@@ -86,7 +89,47 @@ function pullSpotify(song) {
     });
 }
 
-function pullRequest() {
-    console.log(pullRequest)
+function pullOMDB(title) {
+console.log(title)
+    omdb.search(title, function(err, movies) {
+        if (err) {
+            return console.error(err);
+        }
+
+        if (movies.length < 1) {
+            return console.log('No movies were found!');
+        }
+
+        movies.forEach(function(movie) {
+          console.log(movie)
+            console.log('%s (%d)', movie.title, movie.year);
+        });
+
+        // Saw (2004)
+        // Saw II (2005)
+        // Saw III (2006)
+        // Saw IV (2007)
+        // ...
+    });
+
+    // omdb.get({
+    //     title: 'Saw',
+    //     year: 2004
+    // }, true, function(err, movie) {
+    //     if (err) {
+    //         return console.error(err);
+    //     }
+    //
+    //     if (!movie) {
+    //         return console.log('Movie not found!');
+    //     }
+    //
+    //     console.log('%s (%d) %d/10', movie.title, movie.year, movie.imdb.rating);
+    //     console.log(movie.plot);
+    //
+    //     // Saw (2004) 7.6/10
+    //     // Two men wake up at opposite sides of a dirty, disused bathroom, chained
+    //     // by their ankles to pipes. Between them lies...
+    // });
 
 }
