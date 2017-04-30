@@ -43,6 +43,9 @@ if (command == "my-tweets") {
     pullTweets()
 } else if (command == "spotify-this-song") {
     console.log("spotify-this-song")
+    if (query == undefined){
+      query = "The Sign"
+    }
     pullSpotify(query)
 } else if (command == "movie-this") {
     console.log("movie-this")
@@ -79,18 +82,32 @@ function pullSpotify(song) {
             return;
         }
 
-        console.log(data)
+        // console.log(data)
         // console.log(data.tracks)
 
         for (i = 0; i < data.tracks.items.length; i++) {
-            console.log(data.tracks.items[i].name)
+          console.log("==========================================")
+            for (var j = 0; j < data.tracks.items[i].artists.length; j++) {
+                console.log("featured artist: " + data.tracks.items[i].artists[j].name)
+            }
+
+            console.log("track name: " + data.tracks.items[i].name)
+
+            if (data.tracks.items[i].preview_url == null) {
+                console.log("URL NOT FOUND BRAHH!!!")
+            } else {
+                console.log("url BRAHH!!!: " + data.tracks.items[i].preview_url)
+            }
+
+            console.log("album name: " + data.tracks.items[i].album.name)
         }
-        // Do something with 'data'
+
+        // lookup: function({ type: 'artist OR album OR track', id: 'Spotify ID Hash' }, hollaback)
     });
 }
 
 function pullOMDB(title) {
-console.log(title)
+    console.log(title)
     omdb.search(title, function(err, movies) {
         if (err) {
             return console.error(err);
@@ -101,7 +118,7 @@ console.log(title)
         }
 
         movies.forEach(function(movie) {
-          console.log(movie)
+            console.log(movie)
             console.log('%s (%d)', movie.title, movie.year);
         });
 
